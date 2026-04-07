@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MeSlaying</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+@font-face {
+  font-family: 'Scriptin';
+  src: url('SCRIPTIN.ttf');
+}
+@font-face {
+  font-family: 'Bubble';
+  src: url('BubbleShine.otf');}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  height:100vh;
+  background:url('p2.jpg') no-repeat center/cover;
+  font-family:'Scriptin', cursive;}
+.header{
+  text-align:center;
+  font-size:65px;
+  color:white;
+  margin-top:15px;
+  font-weight:bold;
+  text-shadow:0 0 25px rgb(10, 7, 7), 0 0 10px black;
+}
+.stack{
+  position:fixed;
+  top:80px;
+  left:70px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;}
+.small-box{
+  width:120px;
+  height:220px;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:48px;
+  font-weight:900;
+  flex-direction:column;
+  border:14px solid white;
+  line-height:0.85;
+  text-shadow: 
+    0 0 25px black,
+    0 0 10px black,
+    2px 2px 0 black;}
+.big-box{
+  position:absolute;
+  top:140px;
+  right:80px;
+  width:60%;
+  height:65%;
+  background:url('p1.jpg') center/cover;
+  display:flex;
+  justify-content:flex-start; 
+  align-items:flex-start;     
+  padding:30px;
+  color:white;
+  text-align:left;
+  font-size:22px; 
+  line-height:1.5;
+  border:16px solid white;
+  font-family:'Bubble', sans-serif; 
+  text-shadow:
+    0 0 20px black,
+    0 0 10px black;
+}
+</style>
+</head>
+<body>
+
+<div class="header">MeSlaying</div>
+
+<div class="stack">
+  <div class="small-box" style="background-image:url('p3.jpg')">
+    L<br>O
+  </div>
+  <div class="small-box" style="background-image:url('p4.jpg')">
+    V<br>E
+  </div>
+</div>
+
+
+
+
+
+
+<div class="big-box"></div>
+</body>
+</html>
