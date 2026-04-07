@@ -10,96 +10,138 @@
 
 
 
-
-
-
-
-
-
 <style>
 @font-face {
   font-family: 'Scriptin';
   src: url('SCRIPTIN.ttf');
 }
 @font-face {
+  font-family: 'Magzine';
+  src: url('magzine.ttf');
+}
+@font-face {
   font-family: 'Bubble';
-  src: url('BubbleShine.otf');}
+  src: url('BubbleShine.otf');
+}
+@font-face {
+  font-family: 'Doodle';
+  src: url('Doodle Gum.ttf');
+}
+@font-face {
+  font-family: 'Christmas';
+  src: url('Christmas Cat.ttf');
+}
+@font-face {
+  font-family: 'MyHeart';
+  src: url('myheart.otf');
+}
 *{
   margin:0;
   padding:0;
-  box-sizing:border-box;
-}
+  box-sizing:border-box;}
 body{
   height:100vh;
   background:url('p2.jpg') no-repeat center/cover;
-  font-family:'Scriptin', cursive;}
+  font-family:'Scriptin', cursive;
+  position:relative;
+  border:2px solid #460a4e;
+  box-shadow:0 0 0 4px white;
+}
 .header{
   text-align:center;
-  font-size:65px;
-  color:white;
-  margin-top:15px;
-  font-weight:bold;
-  text-shadow:0 0 25px rgb(10, 7, 7), 0 0 10px black;
-}
+  font-size:95px; 
+  color:#765891;  
+  margin-top:25px;
+  font-family:'MyHeart', sans-serif;
+  letter-spacing:2px;
+  text-shadow:
+    4px 4px 0 #be94c4,
+    -4px -4px 0 #be94c4,
+    4px -4px 0 #be94c4,
+    -4px 4px 0 #be94c4,
+    0 0 15px #be94c4,}
 .stack{
-  position:fixed;
-  top:80px;
-  left:70px;
+  position:absolute;
+  top:30px;   
+  left:60px;
   display:flex;
   flex-direction:column;
-  gap:6px;}
+  gap:14px;  
+  z-index:10;
+}
 .small-box{
-  width:120px;
-  height:220px;
+  width:160px;
+  height:250px;
   background-size:cover;
   background-position:center;
   display:flex;
   justify-content:center;
   align-items:center;
-  color:white;
-  font-size:48px;
-  font-weight:900;
+  color:rgb(156, 96, 184);
+  font-size:65px;
+  font-family:'Bubble', sans-serif;
+  font-weight:bold;
   flex-direction:column;
   border:14px solid white;
   line-height:0.85;
+  text-align:center;
   text-shadow: 
     0 0 25px black,
     0 0 10px black,
     2px 2px 0 black;}
+.main{
+  position:relative;
+  height:85vh;}
 .big-box{
   position:absolute;
-  top:140px;
+  top:10px;
   right:80px;
   width:60%;
   height:65%;
-  background:url('p1.jpg') center/cover;
+  background:
+    linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
+    url('p1.jpg') center/cover;
   display:flex;
-  justify-content:flex-start; 
-  align-items:flex-start;     
+  justify-content:flex-start;
+  align-items:flex-start;
   padding:30px;
-  color:white;
+  color:rgb(65, 19, 87);
+  border:14px solid rgb(158, 141, 141);
   text-align:left;
-  font-size:22px; 
+  font-size:26px;
   line-height:1.5;
+  font-family:'Bubble', sans-serif;
   border:16px solid white;
-  font-family:'Bubble', sans-serif; 
   text-shadow:
     0 0 20px black,
     0 0 10px black;
 }
 </style>
 </head>
+
+
+
+
+
+
 <body>
-
 <div class="header">MeSlaying</div>
-
 <div class="stack">
   <div class="small-box" style="background-image:url('p3.jpg')">
     L<br>O
   </div>
   <div class="small-box" style="background-image:url('p4.jpg')">
     V<br>E
-  </div>
+  </div></div>
+
+
+
+
+
+
+<div class="main">
+  <div class="big-box">
+    Me, slayyyyyyyyyyyyy</div>
 </div>
 
 
@@ -107,6 +149,11 @@ body{
 
 
 
-<div class="big-box"></div>
+
+
+
+
+
+
 </body>
 </html>
