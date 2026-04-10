@@ -173,7 +173,144 @@ body{
 @media(max-width:600px){
   .books-grid{
     grid-template-columns:1fr;}}
+.spotify-widget{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  width:330px;
+  padding:6px;
+  background:rgba(35,10,55,0.55);
+  backdrop-filter:blur(14px);
+  border:2px solid #4b1f6f;
+  border-radius:22px;
+  box-shadow:
+    0 0 18px rgba(75,31,111,0.45),
+    0 10px 30px rgba(0,0,0,0.25);
+  z-index:999;}
+.spotify-widget iframe{
+  width:100%;
+  height:80px;   
+  border:none;
+  border-radius:16px;
+  display:block;
+}
+.cursor-trail{
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;}
+.cursor-trail.purple{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:radial-gradient(circle, #e5b3ff 0%, #c86fff 45%, transparent 75%);
+  box-shadow:
+    0 0 10px #dba8ff,
+    0 0 20px #c86fff,
+    0 0 35px #b84dff;
+  animation:fadeTrail 0.8s linear forwards;}
+.cursor-trail.smile{
+  width:30px;
+  height:30px;
+  background:url('smile.png') center/contain no-repeat;
+  animation:wobbleFloat 1s ease-out forwards;}
+@keyframes fadeTrail{
+  to{
+    transform:scale(0);
+    opacity:0;}}
+@keyframes wobbleFloat{
+  0%{
+    transform:translate(0,0) rotate(0deg) scale(1);
+    opacity:1;}
+  25%{
+    transform:translate(-8px,-12px) rotate(12deg) scale(1.05);}
+  50%{
+    transform:translate(8px,-24px) rotate(-12deg) scale(0.95);}
+  75%{
+    transform:translate(-6px,-36px) rotate(18deg) scale(0.85);}
+  100%{
+    transform:translate(6px,-50px) rotate(30deg) scale(0);
+    opacity:0;}}
+#rainBtn{
+  position:fixed;
+  top:25px;
+  right:140px;
+  z-index:9999;
+  padding:10px 24px;
+  font-family:'Scriptin', cursive;
+  font-size:1.5rem;
+  line-height:1;
+  color:#f1d8ff;
+  background:rgba(35,10,55,0.55);
+  border:2px solid #b84dff;
+  border-radius:999px;
+  backdrop-filter:blur(14px);
+  box-shadow:
+    0 0 15px rgba(200,111,255,0.35),
+    0 10px 25px rgba(0,0,0,0.25);
+  cursor:pointer;
+  transition:0.3s ease;}
+#rainBtn:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:
+    0 0 25px rgba(216,150,255,0.5),
+    0 15px 30px rgba(0,0,0,0.3);}
+#rain-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:9998;}
+.rain-drop{
+  position:absolute;
+  top:-80px;
+  width:40px;
+  height:40px;
+  background:url('rain.png') center/contain no-repeat;
+  animation:fallRain linear forwards;}
+@keyframes fallRain{
+  from{
+    transform:translateY(-100px) rotate(0deg);
+    opacity:1;}
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0.95;
+  }}
+#homeBtn{
+  position:fixed;
+  top:25px;
+  right:25px; 
+  z-index:9999;
+  padding:10px 24px;
+  font-family:'Scriptin', cursive;
+  font-size:1.5rem;
+  line-height:1;
+  color:#ca7eca;
+  background:rgba(21, 6, 34, 0.55);
+  border:2px solid #5f347c;
+  border-radius:999px;
+  backdrop-filter:blur(14px);
+  box-shadow:
+    0 0 15px rgba(25, 14, 32, 0.35),
+    0 10px 25px rgba(0,0,0,0.25);
+  cursor:pointer;
+  transition:0.3s ease;}
+#homeBtn:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:
+    0 0 25px rgba(3, 1, 3, 0.5),
+    0 15px 30px rgba(0,0,0,0.3);
+}
 </style>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -200,7 +337,20 @@ body{
   
   
   <h2>The Books I Prefer</h2>
+  
+  <button id="rainBtn">Rain</button>
+  <button id="homeBtn" onclick="window.location.href='hey.html'">Home</button>
   <p class="subtitle">A few books i read to keep myself from stressing.</p>
+ <div class="spotify-widget">
+  <iframe
+    src="https://open.spotify.com/embed/track/75QBAkEqI7PIRKIXdI5fWE?utm_source=generator"
+    width="100%"
+    height="152"
+    frameBorder="0"
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe></div>
   <div class="books-grid">
     <div class="book-card"><img src="mindfornumbers.jpg"></div>
     <div class="book-card"><img src="deepwork.jpg"></div>
@@ -209,6 +359,56 @@ body{
     <div class="book-card"><img src="ultralearning.jpg"></div>
     <div class="book-card"><img src="essentialism.jpg"></div>  </div>
 </section>
+<div id="rain-container"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("mousemove", function(e){
+  const trail = document.createElement("div");
+  trail.classList.add("cursor-trail");
+  if(Math.random() < 0.25){
+    trail.classList.add("smile");
+    trail.style.left = (e.clientX - 10) + "px";
+    trail.style.top = (e.clientY - 10) + "px";
+  } else {
+    trail.classList.add("purple");
+    trail.style.left = (e.clientX - 7) + "px";
+    trail.style.top = (e.clientY - 7) + "px";  }
+  document.body.appendChild(trail);
+  setTimeout(() => {
+    trail.remove();
+  }, 800);});
+document.getElementById("rainBtn").addEventListener("click", () => {
+  const container = document.getElementById("rain-container");
+  for(let i = 0; i < 35; i++){
+    const drop = document.createElement("div");
+    drop.className = "rain-drop";
+    drop.style.left = Math.random() * 100 + "vw";
+    drop.style.animationDuration = (2 + Math.random() * 2) + "s";
+    drop.style.width = (30 + Math.random() * 25) + "px";
+    drop.style.height = drop.style.width;
+    container.appendChild(drop);
+    setTimeout(() => drop.remove(), 4000);
+  }});
+</script>
+
+
+
+
+
+
 
 
 
