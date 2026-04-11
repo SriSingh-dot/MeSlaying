@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dramas Section</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+@font-face{
+  font-family:'Scriptin';
+  src:url('SCRIPTIN.ttf');}
+body{
+  margin:0;
+  padding:0;
+  background:linear-gradient(rgba(25,0,40,0.75), rgba(15,0,25,0.85)), url('back.jpg');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  font-family:Arial,sans-serif;
+}
+.dramas-section{
+  min-height:100vh;
+  padding:80px 8%;
+  position:relative;
+  overflow:hidden;}
+.dramas-section h2{
+  text-align:center;
+  font-family:'Scriptin', cursive;
+  font-size:4rem;
+  color:#c893ff;
+  margin-bottom:50px;
+  text-shadow:0 0 15px rgba(200,111,255,0.45);}
+.drama-swiper-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  width:100%;}
+.drama-swiper{
+  width:900px;
+  overflow:hidden;
+  padding:40px 0;}
+.drama-track{
+  display:flex;
+  gap:30px;
+  transition:transform 0.5s ease;
+  align-items:center;}
+.swiper-nav{
+  width:55px;
+  height:55px;
+  border:none;
+  border-radius:50%;
+  font-size:1.5rem;
+  cursor:pointer;
+  background:rgba(255,141,225,0.18);
+  color:#ffd8f5;
+  box-shadow:0 0 18px rgba(255,141,225,0.35);
+}
+.drama-card{
+  flex:0 0 220px;
+  width:220px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:24px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  transition:0.45s ease;
+  transform:scale(0.82);
+  opacity:0.45;
+  filter:brightness(0.7);}
+.drama-card.active{
+  transform:scale(1.18);
+  opacity:1;
+  filter:brightness(1);
+  z-index:5;
+  box-shadow:0 0 35px rgba(255,141,225,0.25);}
+.drama-card:hover{
+  transform:translateY(-10px) scale(1.03);}
+.drama-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:18px;}
+.drama-name{
+  margin-top:14px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(200,111,255,0.12);
+  color:#efd8ff;
+  font-size:1rem;
+  min-height:24px;
+  text-align:center;
+  border:2px solid #ff8de1;
+  box-shadow:
+    0 0 10px rgba(255,141,225,0.45),
+    0 0 20px rgba(255,141,225,0.25);
+}
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+<section class="dramas-section">
+<h2>Dramas</h2>
+  <div class="drama-swiper-wrapper">
+    <button class="swiper-nav prev">&#10094;</button>
+    <div class="drama-swiper">
+      <div class="drama-track">
+        <div class="drama-card"><img src="d1.png"><div class="drama-name">Kill Me, Heal Me</div></div>
+        <div class="drama-card"><img src="d2.jpg"><div class="drama-name">Bon Appetit, Your Majesty</div></div>
+        <div class="drama-card"><img src="d3.jpg"><div class="drama-name">Twinkling Watermelon</div></div>
+        <div class="drama-card"><img src="d4.jpg"><div class="drama-name">Business Proposal</div></div>
+        <div class="drama-card"><img src="d5.jpg"><div class="drama-name">When the Phone Rings</div></div>
+        <div class="drama-card"><img src="d6.jpg"><div class="drama-name">It's Okay to not be Okay</div></div>
+        <div class="drama-card"><img src="d7.jpg"><div class="drama-name">The Judge from Hell</div></div>
+        <div class="drama-card"><img src="d8.jpg"><div class="drama-name">Legend of the Female General</div></div>
+        <div class="drama-card"><img src="d9.jpg"><div class="drama-name">The Prisoner of beauty</div></div>
+        <div class="drama-card"><img src="d10.jpg"><div class="drama-name">The Glory (C-drama)</div></div>
+        <div class="drama-card"><img src="d11.jpg"><div class="drama-name">Intense Love</div></div>
+        <div class="drama-card"><img src="d12.jpg"><div class="drama-name">Unforgettable Love</div></div>
+        <div class="drama-card"><img src="d13.jpg"><div class="drama-name">Love is Sweet</div></div>
+        <div class="drama-card"><img src="d14.jpg"><div class="drama-name">Begin Again</div></div>
+      </div></div>
+    <button class="swiper-nav next">&#10095;</button></div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const track = document.querySelector('.drama-track');
+const prevBtn = document.querySelector('.swiper-nav.prev');
+const nextBtn = document.querySelector('.swiper-nav.next');
+const originalCards = Array.from(document.querySelectorAll('.drama-card'));
+originalCards.slice(-2).forEach(card => {
+  track.insertBefore(card.cloneNode(true), track.firstChild);});
+originalCards.slice(0,2).forEach(card => {
+  track.appendChild(card.cloneNode(true));});
+const cards = document.querySelectorAll('.drama-card');
+let index = 2;
+function updateActiveCard(){
+  cards.forEach(card => card.classList.remove('active'));
+  if(cards[index]) cards[index].classList.add('active');}
+function updateSwiper(animate=true){
+  const cardWidth = cards[0].offsetWidth + 30;
+  const centerOffset = (document.querySelector('.drama-swiper').offsetWidth / 2) - (cards[0].offsetWidth / 2);
+  track.style.transition = animate ? 'transform 0.5s ease' : 'none';
+  track.style.transform = `translateX(${centerOffset - (index * cardWidth)}px)`;
+  updateActiveCard();}
+nextBtn.addEventListener('click',()=>{
+  index++;
+  updateSwiper();});
+prevBtn.addEventListener('click',()=>{
+  index--;
+  updateSwiper();});
+track.addEventListener('transitionend',()=>{
+  if(index >= cards.length - 2){
+    index = 2;
+    updateSwiper(false);}
+  if(index <= 1){
+    index = cards.length - 3;
+    updateSwiper(false);}});
+setInterval(()=>{
+  index++;
+  updateSwiper();
+},5000);
+window.addEventListener('resize',()=>updateSwiper(false));
+updateSwiper(false);
+</script>
+
+
+
+
+
+
+</body>
+</html>
