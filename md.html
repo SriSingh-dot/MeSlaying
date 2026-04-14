@@ -21,27 +21,32 @@
 @font-face{
   font-family:'Scriptin';
   src:url('SCRIPTIN.ttf');}
+@font-face{
+  font-family:'Bubble';
+  src:url('BubbleShine.otf');}
 body{
   margin:0;
   padding:0;
-  background:linear-gradient(rgba(25,0,40,0.75), rgba(15,0,25,0.85)), url('back.jpg');
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
   font-family:Arial,sans-serif;
+  background: url('back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .dramas-section{
   min-height:100vh;
-  padding:80px 8%;
-  position:relative;
-  overflow:hidden;}
+  padding:20px 8% 40px; 
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;}
 .dramas-section h2{
   text-align:center;
   font-family:'Scriptin', cursive;
   font-size:4rem;
-  color:#c893ff;
-  margin-bottom:50px;
-  text-shadow:0 0 15px rgba(200,111,255,0.45);}
+  color:#ac96c2;
+  margin-bottom:25px;
+  text-shadow:0 0 15px rgba(23, 8, 32, 0.767);}
 .drama-swiper-wrapper{
   display:flex;
   align-items:center;
@@ -51,7 +56,7 @@ body{
 .drama-swiper{
   width:900px;
   overflow:hidden;
-  padding:40px 0;}
+  padding:10px 0;}
 .drama-track{
   display:flex;
   gap:30px;
@@ -88,7 +93,7 @@ body{
   z-index:5;
   box-shadow:0 0 35px rgba(255,141,225,0.25);}
 .drama-card:hover{
-  transform:translateY(-10px) scale(1.03);}
+ transform:translateY(-10px) scale(1.25);}
 .drama-card img{
   width:100%;
   height:320px;
@@ -101,12 +106,86 @@ body{
   background:rgba(200,111,255,0.12);
   color:#efd8ff;
   font-size:1rem;
+  font-family:'Bubble', sans-serif;
   min-height:24px;
   text-align:center;
   border:2px solid #ff8de1;
   box-shadow:
     0 0 10px rgba(255,141,225,0.45),
     0 0 20px rgba(255,141,225,0.25);
+}
+
+
+
+
+
+
+
+
+
+
+#magnetBtn{
+  position:fixed;
+  top:25px;
+  right:25px;
+  padding:12px 18px;
+  border:none;
+  border-radius:30px;
+  font-family:'Bubble', sans-serif;
+  font-size:1rem;
+  color:#fff;
+  background:linear-gradient(45deg,#ff8de1,#c893ff);
+  box-shadow:0 0 15px rgba(255,141,225,0.6);
+  cursor:pointer;
+  z-index:9999;
+  transition:0.3s;
+  backdrop-filter: blur(8px);}
+#magnetBtn:hover{
+  transform:scale(1.1);}
+.fall{
+  animation: glamFall 1.8s cubic-bezier(.22,1,.36,1) forwards;}
+.snap{
+  animation: snapAway 1.5s forwards;}
+@keyframes snapAway{
+  0%{
+    opacity:1;
+    transform:scale(1) rotate(0deg);
+    filter:blur(0);}
+  50%{
+    transform:scale(1.2) rotate(10deg);
+    filter:blur(2px);}
+  100%{
+    opacity:0;
+    transform:scale(0.2) rotate(25deg) translateY(-200px);
+    filter:blur(8px);}}
+
+
+
+
+
+
+
+
+.fadeIn{
+  animation: fadeBack 1s ease forwards;}
+@keyframes fadeBack{
+  0%{
+    opacity:0;
+    filter:blur(6px);}
+  100%{
+    opacity:1;
+    filter:blur(0);}
+  }
+::-webkit-scrollbar{
+  width:10px;}
+::-webkit-scrollbar-track{
+  background:rgba(20,0,30,0.6);}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(45deg,#ff8de1,#c893ff);
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(255,141,225,0.6);}
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(45deg,#c893ff,#ff8de1);
 }
 </style>
 </head>
@@ -141,6 +220,7 @@ body{
       </div></div>
     <button class="swiper-nav next">&#10095;</button></div>
 </section>
+<button id="magnetBtn">Vanish</button>
 
 
 
@@ -194,13 +274,64 @@ track.addEventListener('transitionend',()=>{
   if(index <= 1){
     index = cards.length - 3;
     updateSwiper(false);}});
-setInterval(()=>{
+let autoSlide = setInterval(()=>{
   index++;
   updateSwiper();
 },5000);
 window.addEventListener('resize',()=>updateSwiper(false));
 updateSwiper(false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+const magnetBtn = document.getElementById("magnetBtn");
+let isGone = false;
+magnetBtn.addEventListener("click", () => {
+  const elements = document.querySelectorAll(
+    ".drama-card, .swiper-nav, .dramas-section h2");
+  if(!isGone){
+    clearInterval(autoSlide);
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    magnetBtn.innerText = "Back";
+    elements.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.remove("fadeIn");
+        el.classList.add("snap");
+       }, i * 120);});
+    isGone = true;
+  } else {
+    magnetBtn.innerText = "Vanish";
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
+    elements.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.remove("snap", "vanish");
+        void el.offsetWidth; 
+        el.classList.add("fadeIn");
+      }, i * 80);});
+  setTimeout(() => {
+  updateSwiper(false);
+  updateActiveCard(); 
+}, 500);
+      autoSlide = setInterval(()=>{
+      index++;
+      updateSwiper();
+    },5000);
+      isGone = false;
+  }});
 </script>
+
+
 
 
 
