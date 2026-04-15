@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 1</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+@font-face{
+  font-family:'Bubble';
+  src:url('BubbleShine.otf');
+}
+*{
+  font-family:'Bubble', sans-serif;}
+body{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  font-family:'Bubble', sans-serif;
+  letter-spacing:1px;
+  background:url('back3.jpg') no-repeat center center fixed;
+  background-size:cover;}
+.top-ui{
+  position:fixed;
+  top:15px;
+  right:20px;
+  text-align:right;
+  color:white;
+  font-size:1.1rem;
+  text-shadow:0 0 10px rgba(0,0,0,0.6);
+}
+.goal{
+  font-size:0.9rem;
+  opacity:0.8;}
+.bubble{
+  position:absolute;
+  cursor:pointer;
+  animation: floatUp linear forwards;}
+@keyframes floatUp{
+  from{ transform:translateY(0); opacity:1;}
+  to{ transform:translateY(-110vh); opacity:0;}}
+.plus{
+  position:absolute;
+  color:#fff;
+  font-weight:bold;
+  animation: pop 0.8s ease forwards;
+  pointer-events:none;
+  text-shadow:0 0 8px rgba(0,0,0,0.7);}
+@keyframes pop{
+  0%{ transform:scale(0.5); opacity:1;}
+  100%{ transform:translateY(-40px) scale(1.2); opacity:0;}
+}
+.result-box{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;}
+.hidden{
+  display:none;
+}
+.result-card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
+  box-shadow:
+    0 0 20px rgba(255,141,225,0.5),
+    0 0 40px rgba(200,147,255,0.4);}
+.result-card h2{
+  color:white;
+  margin:10px 0;}
+.result-img{
+  width:120px;
+  margin-bottom:10px;}
+.result-card button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:linear-gradient(45deg,#ff8de1,#c893ff);
+  color:white;
+  font-size:1rem;}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="top-ui">
+  <div>Score: <span id="score">0</span></div>
+  <div class="goal">GOAL: 500</div>
+  <div>Time: <span id="time">60</span>s</div></div>
+<div id="resultBox" class="result-box hidden">
+  <div class="result-card">
+    <img id="resultImg" class="result-img">
+    <h2 id="resultText"></h2>
+    <button id="actionBtn"></button></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+let score = 0;
+let time = 60;
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const resultBox = document.getElementById("resultBox");
+const resultText = document.getElementById("resultText");
+const resultImg = document.getElementById("resultImg");
+const actionBtn = document.getElementById("actionBtn");
+const timerInterval = setInterval(()=>{
+  time--;
+  timeEl.innerText = time;
+  if(time <= 0){
+    endGame();}
+},1000);
+function createBubble(){
+  const bubble = document.createElement("img");
+  let sizeType = Math.random();
+  let size, points;
+  if(sizeType < 0.33){
+    size = 60;
+    points = 50;
+  } else if(sizeType < 0.66){
+    size = 90;
+    points = 30;
+  } else {
+    size = 120;
+    points = 20;  }
+  bubble.src = "butter.png";
+  bubble.className = "bubble";
+  bubble.style.width = size + "px";
+  bubble.style.left = Math.random() * window.innerWidth + "px";
+  bubble.style.bottom = "-120px";
+  let duration = 4 + Math.random() * 3; 
+  bubble.style.animationDuration = duration + "s";
+  bubble.onclick = (e)=>{
+    score += points;
+    scoreEl.innerText = score;
+    showPlus(points, e.clientX, e.clientY);
+    bubble.remove();};
+  document.body.appendChild(bubble);
+  setTimeout(()=>bubble.remove(), duration * 1000);}
+function showPlus(points, x, y){
+  const plus = document.createElement("div");
+  plus.className = "plus";
+  plus.innerText = "+" + points;
+  plus.style.left = x + "px";
+  plus.style.top = y + "px";
+  document.body.appendChild(plus);
+  setTimeout(()=>plus.remove(),800);}
+const bubbleInterval = setInterval(()=>{
+  createBubble();
+},600);
+function endGame(){
+  clearInterval(timerInterval);
+  clearInterval(bubbleInterval);
+  resultBox.classList.remove("hidden");
+  if(score >= 500){
+    resultText.innerText = "You Win!";
+    resultImg.src = "happy.png";
+    actionBtn.innerText = "Next Level ➜";
+    actionBtn.onclick = ()=>{
+      window.location.href = "level2.html";};
+  } else {
+    resultText.innerText = "You Lost!";
+    resultImg.src = "sad.png";
+    actionBtn.innerText = "Retry";
+    actionBtn.onclick = ()=>{
+      location.reload();
+    };}}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
