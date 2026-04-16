@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Level 2</title>
+
+
+
+
+
+
+
+
+
+<style>
+@font-face{
+  font-family:'Bubble';
+  src:url('BubbleShine.otf');
+}
+body{
+  margin:0;
+  overflow:hidden;
+  background:url('dreambg.jpg') no-repeat center center fixed;
+  background-size:cover;
+  font-family:'Bubble', sans-serif;
+  user-select:none;}
+.ui{
+  position:fixed;
+  top:20px;
+  right:20px;
+  text-align:right;
+  color:#fff;
+  font-size:1.2rem;}
+.goal{
+  font-size:0.9rem;
+  opacity:0.8;
+}
+.dream{
+  position:absolute;
+  width:65px;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.points{
+  position:absolute;
+  color:#fff;
+  font-size:1.1rem;
+  animation: floatUp 1s forwards;}
+@keyframes floatUp{
+  0%{opacity:1; transform:translateY(0);}
+  100%{opacity:0; transform:translateY(-40px);}
+}
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;}
+.card{
+  background: linear-gradient(135deg, #ffe6fb, #f3d6ff);
+  padding:30px;
+  border-radius:30px;
+  text-align:center;
+  width:280px;
+  box-shadow:
+    0 0 0 3px #ff8de1,    
+    0 0 0 7px #ffffff,    
+    0 0 0 11px #c893ff,   
+    0 0 25px rgba(255,141,225,0.6),
+    0 0 45px rgba(200,147,255,0.4);
+  animation: popIn 0.5s ease;}
+.card h3{
+  color:#7a3fa0;
+  font-size:1.4rem;
+  margin:10px 0;}
+.card img{
+  width:120px;
+  margin-bottom:10px;}
+.btn{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(45deg,#ff8de1,#c893ff);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(255,141,225,0.6);
+  transition:0.3s;}
+.btn:hover{
+  transform:scale(1.1);
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="ui">
+  Score: <span id="score">0</span><br>
+  Time: <span id="time">60</span>s
+  <div class="goal">GOAL: 1300</div></div>
+<div class="overlay" id="overlay">
+  <div class="card" id="resultCard"></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+let score = 0;
+let time = 60;
+const goal = 1300;
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const overlay = document.getElementById("overlay");
+const resultCard = document.getElementById("resultCard");
+function spawnDream(){
+  const dream = document.createElement("img");
+  const imgs = ["dream1.png","dream2.png"];
+  dream.src = imgs[Math.floor(Math.random()*imgs.length)];
+  dream.classList.add("dream");
+  document.body.appendChild(dream);
+  let x, y, dx, dy;
+  const side = Math.floor(Math.random()*4);
+  if(side === 0){
+    x = -60;
+    y = Math.random()*window.innerHeight;
+    dx = 2 + Math.random()*2;
+    dy = (Math.random()-0.5)*2;}
+  else if(side === 1){
+    x = window.innerWidth+60;
+    y = Math.random()*window.innerHeight;
+    dx = -(2 + Math.random()*2);
+    dy = (Math.random()-0.5)*2;}
+  else if(side === 2){
+    x = Math.random()*window.innerWidth;
+    y = -60;
+    dx = (Math.random()-0.5)*2;
+    dy = 2 + Math.random()*2;}
+  else{
+    x = Math.random()*window.innerWidth;
+    y = window.innerHeight+60;
+    dx = (Math.random()-0.5)*2;
+    dy = -(2 + Math.random()*2);}
+  function move(){
+    x += dx;
+    y += dy;
+    dream.style.left = x+"px";
+    dream.style.top = y+"px";
+    if(
+      x < -100 || x > window.innerWidth+100 ||
+      y < -100 || y > window.innerHeight+100){
+      dream.remove();
+      return;}
+    requestAnimationFrame(move);
+  }
+  move();
+  dream.addEventListener("click",(e)=>{
+    score += 50;
+    scoreEl.innerText = score;
+    const p = document.createElement("div");
+    p.className = "points";
+    p.innerText = "+50";
+    p.style.left = e.clientX + "px";
+    p.style.top = e.clientY + "px";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),1000);
+    dream.remove();
+  });
+}
+const timer = setInterval(()=>{
+  time--;
+  timeEl.innerText = time;
+  if(time <= 0){
+    clearInterval(timer);
+    clearInterval(spawner);
+    endGame();}
+},1000);
+const spawner = setInterval(spawnDream, 700);
+function endGame(){
+  overlay.style.display = "flex";
+  if(score >= goal){
+    resultCard.innerHTML = `
+      <img src="happy.png">
+      <h3>You Win!</h3>
+      <button class="btn" onclick="location.reload()">Play Again</button>
+          `;
+  } else {
+    resultCard.innerHTML = `
+      <img src="sad.png">
+      <h3>You Lost</h3>
+      <button class="btn" onclick="location.reload()">Retry</button>
+    `;}}
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
