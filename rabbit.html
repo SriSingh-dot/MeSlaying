@@ -101,6 +101,113 @@ html{
   margin:15px auto 40px;
   line-height:1.6;
 }
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 12px;}
+::-webkit-scrollbar-track {
+  background: #F2EAE0;
+  border-radius: 10px;
+}
+:-webkit-scrollbar-thumb {
+  background: linear-gradient(#4f7077, #8aa9af);
+  border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover {
+  background: #305c5a;}
+
+
+
+
+
+
+.menu-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:1000;
+  cursor:pointer;
+}
+.menu-btn div{
+  width:30px;
+  height:4px;
+  background:#4f7077;
+  margin:6px 0;
+  border-radius:5px;
+  transition:0.3s;}
+.sidebar{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:250px;
+  height:100%;
+  background:#F2EAE0;
+  padding-top:80px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  transition:0.4s;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+  z-index:999;}
+.sidebar a{
+  text-decoration:none;
+  color:#4f7077;
+  font-size:1.8rem;
+  padding:10px 20px;
+  transition:0.3s;}
+.sidebar a:hover{
+  background:#e6dcd2;}
+.sidebar.active{
+  left:0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-img{
+  width:70%;
+  margin:30px auto 0;
+  display:block;
+  border-radius:15px;
+  opacity:0.9;}
+.petals{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;}
+.petal{
+  position:absolute;
+  top:-50px;
+  opacity:0.85;
+  animation: fall linear infinite;
+  will-change: transform;}
+@keyframes fall{
+  0%{
+    transform: translate(0,0) rotate(0deg);}
+  25%{
+    transform: translate(20px,25vh) rotate(90deg);}
+  50%{
+    transform: translate(-20px,50vh) rotate(180deg);}
+  75%{
+    transform: translate(15px,75vh) rotate(270deg);}
+  100%{
+    transform: translate(-10px,100vh) rotate(360deg);  }}
+
 </style>
 </head>
 
@@ -123,74 +230,141 @@ html{
 
 
 
-
 <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="petals"></div>
+<div class="menu-btn" onclick="toggleMenu()">
+  <div></div><div></div>
+  <div></div></div>
+  <div id="sidebar" class="sidebar">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="interest.html">Games</a>
+  <img src="drop.png" class="sidebar-img">
+</div>
+
+
+
+
+
+
+
+
+
 <section class="hero"></section>
-<div class="divider">
-  </div>
-
+<div class="divider"></div>
 <h1 class="title">The Fluffy balls of love</h1>
-
 <div class="cards">
-
   <a href="#health" class="card">
     <img src="r1.png">
-    <div class="card-text">Health</div>
-  </a>
-
+    <div class="card-text">Health</div></a>
   <a href="#happiness" class="card">
     <img src="r2.png">
-    <div class="card-text">Happiness</div>
-  </a>
-
+    <div class="card-text">Happiness</div></a>
   <a href="#basic" class="card">
     <img src="r3.png">
-    <div class="card-text">Basic Knowledge</div>
-  </a>
-
+    <div class="card-text">Basic Knowledge</div></a>
   <a href="#precautions" class="card">
     <img src="r4.png">
-    <div class="card-text">Precautions</div>
-  </a>
-
+    <div class="card-text">Precautions</div></a>
 </div>
   <div class="divider"></div>
 <h2 class="subtitle">My Chikku</h2>
-
-<p class="intro">
-  
-
-
-  Chiku, my adorable New Zealand White rabbit, is honestly one of a kind. He is around an year old now, but he came into our lives as a tiny week old baby on 26th April 2025, and since then, everything has been cuter and more fun. He is surprisingly smart and has learned to go to the toilet on his own, but the funniest and amzinh part is how he gets all embarrassed if he accidentally drops a ball poop while running (i call his poop chocos), like he knows he messed up. Unlike most rabbits, he doesn’t fear humans at all and instead follows anyone who seems interesting and friendly in nature. He still have not realsied that he is no longer a two month old baby, He gets stuck under my bed now. Also, for a rabbit, he has some serious attitude because he refuses to eat hay and prefers radish leaves, green grass, and even dhania flavored water. With all his quirky habits and sweet personality, Chiku isn’t just a pet, he is a whole tiny personality in himself.
-
-
-
-</p>
-<div class="divider"></div>
+<p class="intro">Chiku, my adorable New Zealand White rabbit, is honestly one of a kind. He is around an year old now, but he came into our lives as a tiny week old baby on 26th April 2025, and since then, everything has been cuter and more fun. He is surprisingly smart and has learned to go to the toilet on his own, but the funniest and amzinh part is how he gets all embarrassed if he accidentally drops a ball poop while running (i call his poop chocos), like he knows he messed up. Unlike most rabbits, he doesn’t fear humans at all and instead follows anyone who seems interesting and friendly in nature. He still have not realsied that he is no longer a two month old baby, He gets stuck under my bed now. Also, for a rabbit, he has some serious attitude because he refuses to eat hay and prefers radish leaves, green grass, and even dhania flavored water. With all his quirky habits and sweet personality, Chiku isn’t just a pet, he is a whole tiny personality in himself.
+</p><div class="divider"></div>
 <h2 id="health" class="subtitle">Health</h2>
 <p class="intro">
   If the rabbits seems small and cute does not mean that they are easy to take care off. Rather as a dog as well as a rabbit owner i personally find raising rabbits more difficult. Rabbits are very delicate animals and they can get sick easily. If you feed something unhealthy or outside their necessary diet, they get sick and starts eating their own poop. Most of the deaths in rabbits are caused by digestive problems after they are fed human food too much. Rabbits have a very sensitive digestive system and they need a specific diet to stay healthy. One must wonder if they do not drink water at all after seeing them not drinking for days. Well this is because of bad diet. I would advice mixing some corrider or other types of green leaves or grass which they love to eat. The packaged "food" for rabbits is not really good for them and it can cause more harm than good. They are mostly made of hay and stuff but should be fed to them only once in a while.  
-
-</p>
-<div class="divider"></div>
+</p><div class="divider"></div>
 <h2 id="happiness" class="subtitle">Happiness</h2>
 <p class="intro">
 Rabbits and bunnies are very playful and they love to have fun. But there is a catch, they are also very shy and they can get scared easily. They do not trust ANYONE. Like if i go out and run towards my rabbit, It will either run away or just bend more to ground .So....how can you play with them? Well my rabbit likes to chew thin wooden sticks and runs after me while i do frog hops. He hates balls...like he lifts the ball and throws it away and even do a whinny roar to warn me. He loves to be pet and actually stuffs his own face under my figers whenever he sees it in reach. One funny fact is that if you lightly scratch their ears, they will start grooming themselves. A huge setback is that they chew wverything which fits in their mouth, so you have to be very careful about what they are chewing on. Let me list out all the things it chewed on -- my earphones, my brother's earphones, my watch charger, bed rim, cloth edges, my rubber slippers, many of my copies etc. 
-
-
-</p>
-<div class="divider"></div>
+</p><div class="divider"></div>
 <h2 id="basic" class="subtitle">Basic Knowledge</h2>
 <p class="intro">
-Rabbits are small gentle, and fluffy balls of lovely fur. They are herbivores and they eat hay, grass, and leafy greens. They actuallu sleeps with their eyes open most of the time. I have seen my rabbit sleeping while laying down and eyes clothes only when their is no one else in my room except me. They actually have a very good vision and they can see in almost 360 degrees i think. But i personally think that my rabbit is partially blind .If you look closely, they are always sniffingv here and there. This is because they have a very good sense of smell and also to communicate with other rabbits. They get lonely if they are left alone for too long. In most of the cases i would recommend rasing two rabbits together . My rabbits actually hates any rabbits and prefers to be with humans rather than its own species. They are very social animals and they need a lot of attention and lovr from their owners. 
-
-</p>
+Rabbits are small gentle, and fluffy balls of lovely fur. They are herbivores and they eat hay, grass, and leafy greens. They actuallu sleeps with their eyes open most of the time. I have seen my rabbit sleeping while laying down and eyes clothes only when their is no one else in my room except me. They actually have a very good vision and they can see in almost 360 degrees i think. But i personally think that my rabbit is partially blind .If you look closely, they are always sniffingv here and there. This is because they have a very good sense of smell and also to communicate with other rabbits. They get lonely if they are left alone for too long. In most of the cases i would recommend rasing two rabbits together . My rabbits actually hates any rabbits and prefers to be with humans rather than its own species. They are very social animals and they need a lot of attention and lovr from their owners. </p>
 <div class="divider"></div>
 <h2 id="precautions" class="subtitle">Precautions</h2>
-<p class="intro">
-  As i said provide them with water regularly and make sure they are eating the right food which matches their balanced diet. Human food sometimes result in direct death. In india the pet shop owners gives false advice of feeding them "Roti". Like the hell? how can you say that. Do not give them a full on bath. Wiping with wet tissue and small damp cloth is more than enough and adviced. My greatest mistake was direting my mother as i saw on videos. I told her to turn on the tap to fill the basin and she actually turned on the tap on the rabbit. Yes it was a disaster. Rabbits are very scared of water and they can get really stressed out if they get wet. Do not pick them up by their ears or legs. They have very fragile and delicate bones. Always support their bodies while lifting them up. Yes one can actually teach them tricks with a lot of patience but hitting them is not the way to do it. They are very sensitive and they can get scared easily. 
+<p class="intro">  As i said provide them with water regularly and make sure they are eating the right food which matches their balanced diet. Human food sometimes result in direct death. In india the pet shop owners gives false advice of feeding them "Roti". Like the hell? how can you say that. Do not give them a full on bath. Wiping with wet tissue and small damp cloth is more than enough and adviced. My greatest mistake was direting my mother as i saw on videos. I told her to turn on the tap to fill the basin and she actually turned on the tap on the rabbit. Yes it was a disaster. Rabbits are very scared of water and they can get really stressed out if they get wet. Do not pick them up by their ears or legs. They have very fragile and delicate bones. Always support their bodies while lifting them up. Yes one can actually teach them tricks with a lot of patience but hitting them is not the way to do it. They are very sensitive and they can get scared easily. </p>
 
 
-</p>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.querySelector(".menu-btn").classList.toggle("active");}
+document.addEventListener("click", function(e){
+  const sidebar = document.getElementById("sidebar");
+  const btn = document.querySelector(".menu-btn");
+  if(!sidebar.contains(e.target) && !btn.contains(e.target)){
+    sidebar.classList.remove("active");
+    btn.classList.remove("active");}});
+const container = document.querySelector(".petals");
+function createPetal(){
+  const petal = document.createElement("img");
+  petal.src = "cherry.png"; 
+  petal.classList.add("petal");
+  petal.style.left = Math.random() * 100 + "vw";
+  const size = 15 + Math.random() * 25;
+  petal.style.width = size + "px";
+  const duration = 6 + Math.random() * 6;
+  petal.style.animationDuration = duration + "s";
+  petal.style.animationDelay = Math.random() * 5 + "s";
+  container.appendChild(petal);
+  setTimeout(() => {
+    petal.remove();
+  }, duration * 1000);}
+setInterval(createPetal, 500);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
