@@ -116,6 +116,41 @@ body{
     0 0 20px black,
     0 0 10px black;
 }
+
+
+
+
+
+#menuBtn{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  z-index:9999;
+  font-family:'Bubble', sans-serif;
+  font-size:1.2rem;
+  letter-spacing:1px;
+  padding:12px 26px;
+  border-radius:999px;
+  color:#f3d9ff;
+  background:rgba(60, 0, 90, 0.55);
+  border:2px solid #c86fff;
+  backdrop-filter:blur(10px);
+  box-shadow:
+    0 0 15px rgba(200,111,255,0.6),
+    0 0 30px rgba(184,77,255,0.5);
+  cursor:pointer;
+  transition:0.3s ease;}
+#menuBtn:hover{
+  transform:translateY(-3px) scale(1.08);
+  box-shadow:
+    0 0 25px rgba(216,150,255,0.8),
+    0 0 45px rgba(200,111,255,0.7);
+}
+
+
+
+
+
 </style>
 </head>
 
@@ -125,6 +160,7 @@ body{
 
 
 <body>
+<button id="menuBtn" onclick="goMenu()">Menu</button>
 <div class="header">MeSlaying</div>
 <div class="stack">
   <div class="small-box" style="background-image:url('p3.jpg')">
@@ -141,7 +177,8 @@ body{
 
 <div class="main">
   <div class="big-box">
-    Me, slayyyyyyyyyyyyy</div>
+    HeYYY This is Srishti. I created this cool aesthetic website for myself. It flaunts my likings as well as the skill i have developed over the years. For most of you this website might be basic but i have poured most of my talented effects in this creation. Hope you all enjoy this random bundle of creativness.<br>
+  And i know your eyes hurt from reading this.....well  that was the whole plan hehehehhe i am evil.</div>
 </div>
 
 
@@ -153,7 +190,10 @@ body{
 
 
 
-
+<script>
+function goMenu(){
+  window.location.href = "menu.html";}
+</script>
 
 </body>
 </html>

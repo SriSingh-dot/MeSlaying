@@ -16,7 +16,6 @@
 
 
 
-
 <style>
 @font-face{
   font-family:'Scriptin';
@@ -166,6 +165,55 @@ body{
 
 
 
+    .menu-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:1000;
+  cursor:pointer;}
+.menu-btn div{
+  width:30px;
+  height:4px;
+  background:white;
+  margin:6px 0;
+  border-radius:5px;}
+.sidebar{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:250px;
+  height:100%;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  padding-top:80px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  transition:0.4s;
+  z-index:999;}
+.sidebar a{
+  text-decoration:none;
+  color:white;
+  font-size:1.6rem;
+  padding:10px 20px;
+  font-family:'Bubble', sans-serif;}
+.sidebar.active{
+  left:0;}
+.sidebar-img{
+  width:70%;
+  margin:30px auto;
+  display:block;
+  border-radius:15px;
+  opacity:0.9;}
+.sidebar a:hover{
+  color:#ff8de1;
+  transform:translateX(5px);
+  transition:0.2s;
+}
+
+
+
+
 .fadeIn{
   animation: fadeBack 1s ease forwards;}
 @keyframes fadeBack{
@@ -174,8 +222,7 @@ body{
     filter:blur(6px);}
   100%{
     opacity:1;
-    filter:blur(0);}
-  }
+    filter:blur(0);}}
 ::-webkit-scrollbar{
   width:10px;}
 ::-webkit-scrollbar-track{
@@ -209,7 +256,16 @@ body{
 <body>
 
 
-
+<div class="menu-btn" onclick="toggleMenu()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div><div id="sidebar" class="sidebar">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="interest.html">Games</a>
+  <img src="drop2.png" class="sidebar-img">
+</div>
 
 
 
@@ -353,6 +409,10 @@ magnetBtn.addEventListener("click", () => {
   }});
 
   let isPaused = false;
+function toggleMenu(){
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("active");
+}
 </script>
 
 

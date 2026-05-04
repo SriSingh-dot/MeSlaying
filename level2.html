@@ -94,6 +94,53 @@ body{
 .btn:hover{
   transform:scale(1.1);
 }
+
+
+
+
+
+
+.menu-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:1000;
+  cursor:pointer;}
+.menu-btn div{
+  width:30px;
+  height:4px;
+  background:white;
+  margin:6px 0;
+  border-radius:5px;}
+.sidebar{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:250px;
+  height:100%;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  padding-top:80px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  transition:0.4s;
+  z-index:999;}
+.sidebar a{
+  text-decoration:none;
+  color:white;
+  font-size:1.6rem;
+  padding:10px 20px;}
+.sidebar.active{
+  left:0;}
+.sidebar-img{
+  width:70%;
+  margin:30px auto;
+  display:block;
+  border-radius:15px;
+}
+
+
 </style>
 
 
@@ -109,6 +156,15 @@ body{
 
 </head>
 <body>
+<div class="menu-btn" onclick="toggleMenu()">
+  <div></div>
+  <div></div>
+  <div></div></div>
+<div id="sidebar" class="sidebar">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="interest.html">Games</a>
+  <img src="drop2.png" class="sidebar-img"></div>
 <div class="ui">
   Score: <span id="score">0</span><br>
   Time: <span id="time">60</span>s
@@ -129,9 +185,13 @@ body{
 
 
 <script>
+
+let isPaused = false;
+let activeDreams = [];
 let score = 0;
 let time = 60;
 const goal = 1300;
+let timer, spawner;
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const overlay = document.getElementById("overlay");
@@ -165,17 +225,18 @@ function spawnDream(){
     dx = (Math.random()-0.5)*2;
     dy = -(2 + Math.random()*2);}
   function move(){
-    x += dx;
-    y += dy;
-    dream.style.left = x+"px";
-    dream.style.top = y+"px";
-    if(
-      x < -100 || x > window.innerWidth+100 ||
-      y < -100 || y > window.innerHeight+100){
-      dream.remove();
-      return;}
-    requestAnimationFrame(move);
-  }
+  if(isPaused) return; 
+  x += dx;
+  y += dy;
+  dream.style.left = x+"px";
+  dream.style.top = y+"px";
+  if(
+  x < -100 || x > window.innerWidth+100 ||
+  y < -100 || y > window.innerHeight+100){
+  dream.remove();
+  activeDreams = activeDreams.filter(obj => obj.move !== move);
+  return;}
+  requestAnimationFrame(move);}
   move();
   dream.addEventListener("click",(e)=>{
     score += 50;
@@ -187,18 +248,9 @@ function spawnDream(){
     p.style.top = e.clientY + "px";
     document.body.appendChild(p);
     setTimeout(()=>p.remove(),1000);
-    dream.remove();
-  });
-}
-const timer = setInterval(()=>{
-  time--;
-  timeEl.innerText = time;
-  if(time <= 0){
-    clearInterval(timer);
-    clearInterval(spawner);
-    endGame();}
-},1000);
-const spawner = setInterval(spawnDream, 700);
+   dream.remove();
+    activeDreams = activeDreams.filter(obj => obj.move !== move);});
+  activeDreams.push({move});}
 function endGame(){
   overlay.style.display = "flex";
   if(score >= goal){
@@ -213,6 +265,32 @@ function endGame(){
       <h3>You Lost</h3>
       <button class="btn" onclick="location.reload()">Retry</button>
     `;}}
+function startGameLoops(){
+  timer = setInterval(()=>{
+    if(!isPaused){
+      time--;
+      timeEl.innerText = time;
+
+      if(time <= 0){
+        clearInterval(timer);
+        clearInterval(spawner);
+        endGame();
+      }}},1000);
+  spawner = setInterval(()=>{
+    if(!isPaused){
+      spawnDream();}
+  },700);}
+startGameLoops();
+function toggleMenu(){
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+    isPaused = true;
+  } else {
+    isPaused = false;  
+    activeDreams.forEach(obj=>{
+      requestAnimationFrame(obj.move);
+    });}}
 </script>
 
 
